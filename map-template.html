@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["map"]});
+    google.setOnLoadCallback(drawMap);
+    function drawMap() {
+      var data = new google.visualization.arrayToDataTable([
+        ['Lat', 'Lon', 'Details'],
+        {{#quakes}}
+        [ {{latitude}}, {{longitude}}, "M{{magnitude}}, {{depth}} km" ],
+        {{/quakes}}
+      ]);
+      var map = new google.visualization.Map(document.getElementById('map'));
+      map.draw(data, {showTip: true});
+    }
+  </script>
+  <title>Earthquake Map</title>
+</head>
+<body>
+  <h1>Level: {{level}}, Period: {{period}}</h1>
+  <div id="map" style="width:800px; height:500px"></div>
+</body>
+</html>
